@@ -114,7 +114,7 @@ adb -s emulator-5554 shell "/data/local/tmp/frida-server-17.8.2-android-x86_64 -
 In another terminal forward the local port 27042 to the device.
 
 ```bash
-adb -s emulator-5556 forward tcp:27042 tcp:27042
+adb -s emulator-5554 forward tcp:27042 tcp:27042
 ```
 
 ![alt text](./images/image-12.png)
