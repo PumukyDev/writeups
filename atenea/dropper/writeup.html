@@ -257,8 +257,19 @@
 <ul class="simple">
 <li><p>Volatility</p></li>
 <li><p>Volatility plugins</p></li>
-<li><p>Download the practice <a class="reference internal" href="#./memory.2244013c.img"><span class="xref myst">here</span></a></p></li>
+<li><p>Download the practice <a class="reference external" href="https://drive.usercontent.google.com/download?id=1OgjS9MtPklkL-jeiZcoj9SLAs8mFcl41&amp;amp;export=download&amp;amp;authuser=1">here</a></p></li>
 </ul>
+<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ banners.Banners</p>
+<p><img alt="alt text" src="../../_images/image.png" /></p>
+<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.info</p>
+<p><img alt="alt text" src="../../_images/image-1.png" /></p>
+<p>como nos han dicho que es un virus persistente, vamos a busar las tareas programadas. Para ellos, copio a l protapapeles este script</p>
+<p>https://github.com/tomchop/volatility3-autoruns/blob/main/autoruns.py</p>
+<p>lo peagamos en la ruta de plugins de volatility</p>
+<p><img alt="alt text" src="../../_images/image-2.png" /></p>
+<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.autoruns</p>
+<p>en la imagen se puede ver que cada cierto tiempo, visita http://wiki-read.com/info.txt y ejecuta su contenido</p>
+<p><img alt="alt text" src="../../_images/image-3.png" /></p>
 </section>
 </section>
 </section>

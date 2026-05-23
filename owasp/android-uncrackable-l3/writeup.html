@@ -253,17 +253,17 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>avdmanager<span class="w"> </span>list<span class="w"> </span>avd
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image2.png" /></p>
+<p><img alt="alt text" src="../../_images/image4.png" /></p>
 <p>Start the emulator as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>emulator<span class="w"> </span>-avd<span class="w"> </span>Android26
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-1.png" /></p>
+<p><img alt="alt text" src="../../_images/image-110.png" /></p>
 <p>Use the following command to list connected devices. Note the device name.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>devices
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-212.png" /></p>
+<p><img alt="alt text" src="../../_images/image-213.png" /></p>
 <p>Download <a class="reference external" href="https://github.com/OWASP/mastg/raw/master/Crackmes/Android/Level_03/UnCrackable-Level3.apk">UnCrackable-Level3.apk</a> and install it on the emulator. Then open the app.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>-s<span class="w"> </span>emulator-5554<span class="w"> </span>install<span class="w"> </span>UnCrackable-Level3.apk
 </pre></div>
@@ -271,16 +271,16 @@
 <p><img alt="alt text" src="../../_images/image-310.png" /></p>
 <p><img alt="alt text" src="../../_images/image-47.png" /></p>
 <p>The application detects that the device is rooted and immediately closes.</p>
-<p><img alt="alt text" src="../../_images/image-52.png" /></p>
+<p><img alt="alt text" src="../../_images/image-53.png" /></p>
 <p>To bypass this, we need to investigate the app for an anti-root check. Android APK Studio will be used for static analysis, although other tools like <code class="docutils literal notranslate"><span class="pre">jadx</span></code> or <code class="docutils literal notranslate"><span class="pre">apktool</span></code> can do the same job.</p>
 <p>Open Android APK Studio and click “File” -&gt; “Open” -&gt; “APK”, then select UnCrackable-Level2.apk.</p>
-<p><img alt="alt text" src="../../_images/image-62.png" /></p>
+<p><img alt="alt text" src="../../_images/image-63.png" /></p>
 <p>Select the “Decompile java?” checkbox and click “Decompile”.</p>
-<p><img alt="alt text" src="../../_images/image-72.png" /></p>
-<p><img alt="alt text" src="../../_images/image-82.png" /></p>
+<p><img alt="alt text" src="../../_images/image-73.png" /></p>
+<p><img alt="alt text" src="../../_images/image-83.png" /></p>
 <p><img alt="alt text" src="../../_images/image-92.png" /></p>
 <p><img alt="alt text" src="../../_images/image-102.png" /></p>
-<p><img alt="alt text" src="../../_images/image-112.png" /></p>
+<p><img alt="alt text" src="../../_images/image-113.png" /></p>
 <p><img alt="alt text" src="../../_images/image-122.png" /></p>
 </section>
 

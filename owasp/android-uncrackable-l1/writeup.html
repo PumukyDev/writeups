@@ -253,7 +253,7 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>avdmanager<span class="w"> </span>list<span class="w"> </span>avd
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image.png" /></p>
+<p><img alt="alt text" src="../../_images/image2.png" /></p>
 <p>Start the emulator as follows:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>emulator<span class="w"> </span>-avd<span class="w"> </span>Android26
 </pre></div>
@@ -263,29 +263,29 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>devices
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-3.png" /></p>
+<p><img alt="alt text" src="../../_images/image-31.png" /></p>
 <p>Download <a class="reference external" href="https://github.com/OWASP/mastg/raw/master/Crackmes/Android/Level_01/UnCrackable-Level1.apk">UnCrackable-Level1.apk</a> and install it on the emulator. Then open the app.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>-s<span class="w"> </span>emulator-5554<span class="w"> </span>install<span class="w"> </span>UnCrackable-Level1.apk
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-4.png" /></p>
-<p><img alt="alt text" src="../../_images/image-2.png" /></p>
+<p><img alt="alt text" src="../../_images/image-41.png" /></p>
+<p><img alt="alt text" src="../../_images/image-21.png" /></p>
 <p>The application detects that the device is rooted and immediately closes.</p>
-<p><img alt="alt text" src="../../_images/image-5.png" /></p>
+<p><img alt="alt text" src="../../_images/image-51.png" /></p>
 <p>To bypass this, we need to investigate the app to find the anti-root check.</p>
 <p>Android APK Studio will be used for static analysis, although other tools like <code class="docutils literal notranslate"><span class="pre">jadx</span></code> or <code class="docutils literal notranslate"><span class="pre">apktool</span></code> can do the same job.</p>
 <p>Open Android APK Studio and click “File” -&gt; “Open” -&gt; “APK”, then select <code class="docutils literal notranslate"><span class="pre">UnCrackable-Level1.apk</span></code>.</p>
-<p><img alt="alt text" src="../../_images/image-6.png" /></p>
+<p><img alt="alt text" src="../../_images/image-61.png" /></p>
 <p>Select the “Decompile java?” checkbox and click “Decompile”.</p>
-<p><img alt="alt text" src="../../_images/image-7.png" /></p>
+<p><img alt="alt text" src="../../_images/image-71.png" /></p>
 <p>I will modify the app to bypass the root detection. Add the attribute <code class="docutils literal notranslate"><span class="pre">android:debuggable=&quot;true&quot;</span></code> in <code class="docutils literal notranslate"><span class="pre">AndroidManifest.xml</span></code> to allow debugging.</p>
-<p><img alt="alt text" src="../../_images/image-8.png" /></p>
+<p><img alt="alt text" src="../../_images/image-81.png" /></p>
 <p>Navigate to the <code class="docutils literal notranslate"><span class="pre">MainActivity.java</span></code> file, which is the app’s entry point, and analyze it.</p>
 <p><img alt="alt text" src="../../_images/image-9.png" /></p>
 <p>As shown, a function is triggered when <code class="docutils literal notranslate"><span class="pre">c.a()</span></code>, <code class="docutils literal notranslate"><span class="pre">c.b()</span></code>, or <code class="docutils literal notranslate"><span class="pre">c.c()</span></code> return true. In that case, the app detects root.</p>
 <p><img alt="alt text" src="../../_images/image-10.png" /></p>
 <p>Open class <code class="docutils literal notranslate"><span class="pre">c</span></code> to study the anti-root protection.</p>
-<p><img alt="alt text" src="../../_images/image-11.png" /></p>
+<p><img alt="alt text" src="../../_images/image-111.png" /></p>
 <p>There we can see:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">a</span></code>: detects <code class="docutils literal notranslate"><span class="pre">su</span></code> in the system path.</p></li>
@@ -315,7 +315,7 @@
 <li><p>Alias Password: <code class="docutils literal notranslate"><span class="pre">android</span></code>.</p></li>
 </ul>
 <p><img alt="alt text" src="../../_images/image-20.png" /></p>
-<p><img alt="alt text" src="../../_images/image-21.png" /></p>
+<p><img alt="alt text" src="../../_images/image-211.png" /></p>
 <p>After the keys are generated, click “Sign”.</p>
 <p><img alt="alt text" src="../../_images/image-22.png" /></p>
 <p>Check the console at the bottom to ensure the process completed successfully with exit code 0.</p>
@@ -336,7 +336,7 @@
 <p>Open the app and observe that several error messages appear, but the application no longer exits due to the changes made.</p>
 <p><img alt="alt text" src="../../_images/image-28.png" /></p>
 <p><img alt="alt text" src="../../_images/image-30.png" /></p>
-<p><img alt="alt text" src="../../_images/image-31.png" /></p>
+<p><img alt="alt text" src="../../_images/image-311.png" /></p>
 <p><img alt="alt text" src="../../_images/image-32.png" /></p>
 <p>There is a form requesting a secret string. Try using “secret” and click “Verify” to see what happens.</p>
 <p><img alt="alt text" src="../../_images/image-33.png" /></p>
@@ -349,7 +349,7 @@
 <p>The function uses a hexadecimal key and a Base64 string to verify the secret with AES. The secret is not in plain text, but we have both the Base64 string and the AES decryption key.</p>
 <p><img alt="alt text" src="../../_images/image-37.png" /></p>
 <p>Open CyberChef (https://cyberchef.org), paste the Base64 string, decode it from Base64, and then decrypt it with AES using the hexadecimal key. The secret will be revealed.</p>
-<p><img alt="alt text" src="../../_images/image-41.png" /></p>
+<p><img alt="alt text" src="../../_images/image-411.png" /></p>
 <p>Enter the secret into the app and verify.</p>
 <p><img alt="alt text" src="../../_images/image-42.png" /></p>
 <p><img alt="alt text" src="../../_images/image-43.png" /></p>

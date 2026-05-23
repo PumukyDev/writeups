@@ -263,20 +263,20 @@
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>devices
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-51.png" /></p>
+<p><img alt="alt text" src="../../_images/image-52.png" /></p>
 <p>Download <a class="reference external" href="https://github.com/OWASP/mastg/raw/master/Crackmes/Android/Level_02/UnCrackable-Level2.apk">UnCrackable-Level2.apk</a> and install it on the emulator. Then open the app.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>-s<span class="w"> </span>emulator-5554<span class="w"> </span>install<span class="w"> </span>UnCrackable-Level2.apk
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-61.png" /></p>
-<p><img alt="alt text" src="../../_images/image-71.png" /></p>
+<p><img alt="alt text" src="../../_images/image-62.png" /></p>
+<p><img alt="alt text" src="../../_images/image-72.png" /></p>
 <p>The application detects that the device is rooted and immediately closes.</p>
-<p><img alt="alt text" src="../../_images/image-81.png" /></p>
+<p><img alt="alt text" src="../../_images/image-82.png" /></p>
 <p>To bypass this, we need to investigate the app for an anti-root check. Android APK Studio will be used for static analysis, although other tools like <code class="docutils literal notranslate"><span class="pre">jadx</span></code> or <code class="docutils literal notranslate"><span class="pre">apktool</span></code> can do the same job.</p>
 <p>Open Android APK Studio and click “File” -&gt; “Open” -&gt; “APK”, then select UnCrackable-Level2.apk.</p>
-<p><img alt="alt text" src="../../_images/image-411.png" /></p>
+<p><img alt="alt text" src="../../_images/image-412.png" /></p>
 <p>Select the “Decompile java?” checkbox and click “Decompile”.</p>
-<p><img alt="alt text" src="../../_images/image1.png" /></p>
+<p><img alt="alt text" src="../../_images/image3.png" /></p>
 <p>Analyzing the code, we can see that in <code class="docutils literal notranslate"><span class="pre">MainActivity.java</span></code> a method <code class="docutils literal notranslate"><span class="pre">a</span></code> is called after detecting a rooted device and the application then exits.</p>
 <p><img alt="alt text" src="../../_images/image-210.png" /></p>
 <p>To bypass this we will use Frida. For better visualization I will complement it using RMS (Runtime Mobile Security), which is a web interface that simplifies using Frida.</p>
@@ -300,7 +300,7 @@ sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> <
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>-s<span class="w"> </span>emulator-5554<span class="w"> </span>push<span class="w"> </span>frida-server-17.8.2-android-x86_64<span class="w"> </span>/data/local/tmp/
 </pre></div>
 </div>
-<p><img alt="alt text" src="../../_images/image-111.png" /></p>
+<p><img alt="alt text" src="../../_images/image-112.png" /></p>
 <p>Make the file executable.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>adb<span class="w"> </span>-s<span class="w"> </span>emulator-5554<span class="w"> </span>shell<span class="w"> </span><span class="s2">&quot;chmod 755 /data/local/tmp/frida-server-17.8.2-android-x86_64&quot;</span>
 </pre></div>
@@ -328,7 +328,7 @@ sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> <
 <p>Click “Load Default Frida Scripts”.</p>
 <p><img alt="alt text" src="../../_images/image-201.png" /></p>
 <p>Several scripts will appear. For now we only need script number 24, called <code class="docutils literal notranslate"><span class="pre">system_exit_bypass.js</span></code>. Click it.</p>
-<p><img alt="alt text" src="../../_images/image-211.png" /></p>
+<p><img alt="alt text" src="../../_images/image-212.png" /></p>
 <p>The script should be loaded. Click “Start RMS” to run the script and bypass the root protection.</p>
 <p><img alt="alt text" src="../../_images/image-221.png" /></p>
 <p>Return to the mobile application and check the console logs to confirm the script is loaded. If you click “OK” when root is detected, the message “System.exit() Bypassed!” should appear and the application will remain open.</p>
@@ -339,7 +339,7 @@ sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> <
 <p>An error message is displayed. We now need to obtain the actual secret code.</p>
 <p>Return to RMS. Navigate to the settings panel, fill in the data as before, and click “Start RMS”.</p>
 <p><img alt="alt text" src="../../_images/image-201.png" /></p>
-<p><img alt="alt text" src="../../_images/image-211.png" /></p>
+<p><img alt="alt text" src="../../_images/image-212.png" /></p>
 <p><img alt="alt text" src="../../_images/image-221.png" /></p>
 <p>Click “Load classes”.</p>
 <p><img alt="alt text" src="../../_images/image-151.png" /></p>
@@ -353,7 +353,7 @@ sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> <
 <p>Click “Hook all methods”.</p>
 <p><img alt="alt text" src="../../_images/image-271.png" /></p>
 <p>Return to the Android application and click the “Root detected!” message.</p>
-<p><img alt="alt text" src="../../_images/image-81.png" /></p>
+<p><img alt="alt text" src="../../_images/image-82.png" /></p>
 <p>In RMS you will see a console showing which methods have been called.</p>
 <p><img alt="alt text" src="../../_images/image-281.png" /></p>
 <p>Enter any secret and click “Verify”.</p>
@@ -363,7 +363,7 @@ sudo<span class="w"> </span>npm<span class="w"> </span>install<span class="w"> <
 <p>Searching in <code class="docutils literal notranslate"><span class="pre">MainActivity</span></code> using Android APK Studio, we see that it loads the native library <code class="docutils literal notranslate"><span class="pre">foo</span></code>.</p>
 <p><img alt="alt text" src="../../_images/image-301.png" /></p>
 <p>This library can be found under <code class="docutils literal notranslate"><span class="pre">/lib/&lt;architecture&gt;/libfoo.so</span></code>. However, we cannot read it directly, so we need to decompile it.</p>
-<p><img alt="alt text" src="../../_images/image-311.png" /></p>
+<p><img alt="alt text" src="../../_images/image-312.png" /></p>
 <p>To do that we will use Ghidra. Rename the <code class="docutils literal notranslate"><span class="pre">.apk</span></code> to <code class="docutils literal notranslate"><span class="pre">.zip</span></code>, extract it, open <code class="docutils literal notranslate"><span class="pre">libfoo.so</span></code> in Ghidra, and double-click it.</p>
 <p><img alt="alt text" src="../../_images/image-331.png" /></p>
 <p>Analyze the code and search for the part where the check is performed.</p>
