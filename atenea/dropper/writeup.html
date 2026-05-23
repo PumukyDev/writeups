@@ -242,35 +242,44 @@
         <article role="main" id="furo-main-content">
           <section id="dropper">
 <h1>dropper<a class="headerlink" href="#dropper" title="Link to this heading">¶</a></h1>
-<section id="id1">
-<h2><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h2>
 <p>We suspect that the provided memory dump corresponds to a machine that has been persistently infected by some type of malware, possibly a dropper. We would like to identify the malicious domain used by it.</p>
-<section id="objectives">
-<h3>Objectives<a class="headerlink" href="#objectives" title="Link to this heading">¶</a></h3>
+</section>
+<section id="objective">
+<h2>Objective<a class="headerlink" href="#objective" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Investigate and determine the infection method and the malicious domain.</p></li>
 <li><p>Perform advanced investigations using specific plugins to process operating system–specific artifacts.</p></li>
 </ul>
 </section>
 <section id="required-resources">
-<h3>Required Resources<a class="headerlink" href="#required-resources" title="Link to this heading">¶</a></h3>
+<h2>Required Resources<a class="headerlink" href="#required-resources" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Volatility</p></li>
 <li><p>Volatility plugins</p></li>
-<li><p>Download the practice <a class="reference external" href="https://drive.usercontent.google.com/download?id=1OgjS9MtPklkL-jeiZcoj9SLAs8mFcl41&amp;amp;export=download&amp;amp;authuser=1">here</a></p></li>
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">.img</span></code> <a class="reference external" href="https://drive.usercontent.google.com/download?id=1OgjS9MtPklkL-jeiZcoj9SLAs8mFcl41&amp;amp;export=download&amp;amp;authuser=1">here</a></p></li>
 </ul>
-<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ banners.Banners</p>
-<p><img alt="alt text" src="../../_images/image.png" /></p>
-<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.info</p>
-<p><img alt="alt text" src="../../_images/image-1.png" /></p>
-<p>como nos han dicho que es un virus persistente, vamos a busar las tareas programadas. Para ellos, copio a l protapapeles este script</p>
-<p>https://github.com/tomchop/volatility3-autoruns/blob/main/autoruns.py</p>
-<p>lo peagamos en la ruta de plugins de volatility</p>
-<p><img alt="alt text" src="../../_images/image-2.png" /></p>
-<p>vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.autoruns</p>
-<p>en la imagen se puede ver que cada cierto tiempo, visita http://wiki-read.com/info.txt y ejecuta su contenido</p>
-<p><img alt="alt text" src="../../_images/image-3.png" /></p>
 </section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="Link to this heading">¶</a></h2>
+<p>After downloading the file, we run the following command to identify the operating system. The output shows that it is Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>memory.2244013c.img<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>banners.Banners<span class="w"> </span>
+</pre></div>
+</div>
+<p><img alt="alt text" src="../../_images/image.png" /></p>
+<p>We can extract a bit more system information with the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>memory.2244013c.img<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>windows.info
+</pre></div>
+</div>
+<p><img alt="alt text" src="../../_images/image-1.png" /></p>
+<p>Since we were told the infection is persistent, we look for scheduled tasks. For that, I copy this <a class="reference external" href="https://github.com/tomchop/volatility3-autoruns/blob/main/autoruns.py">script</a> to the clipboard. Paste it into the Volatility plugins path.</p>
+<p><img alt="alt text" src="../../_images/image-2.png" /></p>
+<p>Then we run the following command to execute the script. After the analysis, we can see that on a regular interval it visits http://wiki-read.com/info.txt and executes its contents.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>memory.2244013c.img<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>windows.autoruns
+</pre></div>
+</div>
+<p><img alt="alt text" src="../../_images/image-3.png" /></p>
 </section>
 </section>
 
@@ -330,11 +339,10 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">dropper</a><ul>
-<li><a class="reference internal" href="#id1"></a><ul>
-<li><a class="reference internal" href="#objectives">Objectives</a></li>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#objective">Objective</a></li>
 <li><a class="reference internal" href="#required-resources">Required Resources</a></li>
-</ul>
-</li>
+<li><a class="reference internal" href="#solution">Solution</a></li>
 </ul>
 </li>
 </ul>

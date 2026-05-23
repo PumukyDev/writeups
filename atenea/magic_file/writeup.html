@@ -256,19 +256,31 @@
 <h2>Required Resources<a class="headerlink" href="#required-resources" title="Link to this heading">¶</a></h2>
 <ul class="simple">
 <li><p>Volatility</p></li>
-<li><p>Download the practice <a class="reference external" href="https://drive.usercontent.google.com/download?id=1J_OfVL5IzVE44t5fergJA146wnbDSHA6&amp;amp;export=download&amp;amp;authuser=1">here</a></p></li>
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">.raw</span></code> <a class="reference external" href="https://drive.usercontent.google.com/download?id=1J_OfVL5IzVE44t5fergJA146wnbDSHA6&amp;amp;export=download&amp;amp;authuser=1">here</a></p></li>
 </ul>
-<p>vol3 -f practica2.raw -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.pslist</p>
-<p>podemos ver un porgama de cifrado que está activo y que por o tantop puede tener las claves de cirfrado en la memoreriua RAM</p>
+</section>
+<section id="solution">
+<h2>Solution<a class="headerlink" href="#solution" title="Link to this heading">¶</a></h2>
+<p>After downloading the memory dump, we identify the operating system with the following command. The output shows that it is Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>practica2.raw<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>banners.Banners
+</pre></div>
+</div>
+<p><img alt="alt text" src="../../_images/image-9.png" /></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">magic_file</span></code> is encrypted. After listing running processes, we see that TrueCrypt is loaded in memory, which suggests the volume password may also be present:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>practica2.raw<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>windows.pslist
+</pre></div>
+</div>
 <p><img alt="alt text" src="../../_images/image1.png" /></p>
-<p>vol3 -f practica2.raw -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.truecrypt</p>
-<p>después de ejecutar este comadno podemos sacar la contraseña, que es XXX</p>
+<p>We can recover TrueCrypt-related secrets from memory with the dedicated plugin. In this case, the password is found:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vol3<span class="w"> </span>-f<span class="w"> </span>practica2.raw<span class="w"> </span>-s<span class="w"> </span>~/desktop/tools/volatility3/volatility3/symbols/<span class="w"> </span>windows.truecrypt
+</pre></div>
+</div>
 <p><img alt="alt text" src="../../_images/image-11.png" /></p>
-<p>en windwos, nos descargamos TrueCrypt de https://www.truecrypt.org/downloads y abrimos el archiov mágico que venía al descromprimir el <a class="reference external" href="https://drive.usercontent.google.com/download?id=1J_OfVL5IzVE44t5fergJA146wnbDSHA6&amp;amp;export=download&amp;amp;authuser=1">archivo</a></p>
+<p>On Windows, install <a class="reference external" href="https://www.truecrypt.org/downloads">TrueCrypt</a> and open the encrypted container from the <a class="reference external" href="https://drive.usercontent.google.com/download?id=1J_OfVL5IzVE44t5fergJA146wnbDSHA6&amp;amp;export=download&amp;amp;authuser=1">provided archive</a> (the <code class="docutils literal notranslate"><span class="pre">magic_file</span></code> inside it).</p>
+<p>Following the steps below, we mount the volume with the recovered password and read its contents:</p>
 <p><img alt="alt text" src="../../_images/image-4.png" /></p>
 <p><img alt="alt text" src="../../_images/image-5.png" /></p>
 <p><img alt="alt text" src="../../_images/image-6.png" /></p>
-<p>ahora se ha montado en D:</p>
 <p><img alt="alt text" src="../../_images/image-7.png" /></p>
 <p><img alt="alt text" src="../../_images/image-8.png" /></p>
 </section>
@@ -333,6 +345,7 @@
 <li><a class="reference internal" href="#overview">Overview</a></li>
 <li><a class="reference internal" href="#objective">Objective</a></li>
 <li><a class="reference internal" href="#required-resources">Required Resources</a></li>
+<li><a class="reference internal" href="#solution">Solution</a></li>
 </ul>
 </li>
 </ul>
