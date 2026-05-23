@@ -1,39 +1,47 @@
 # dropper
 
-##
+## Overview
+
 We suspect that the provided memory dump corresponds to a machine that has been persistently infected by some type of malware, possibly a dropper. We would like to identify the malicious domain used by it.
 
-### Objectives
+## Objective
+
 - Investigate and determine the infection method and the malicious domain.
 - Perform advanced investigations using specific plugins to process operating system–specific artifacts.
 
-### Required Resources
+## Required Resources
+
 - Volatility  
 - Volatility plugins  
-- Download the practice [here](https://drive.usercontent.google.com/download?id=1OgjS9MtPklkL-jeiZcoj9SLAs8mFcl41&export=download&authuser=1)
+- Download the `.img` [here](https://drive.usercontent.google.com/download?id=1OgjS9MtPklkL-jeiZcoj9SLAs8mFcl41&export=download&authuser=1)
 
+## Solution
 
+After downloading the file, we run the following command to identify the operating system. The output shows that it is Windows:
 
-
+```bash
 vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ banners.Banners 
+```
 
-![alt text](image.png)
+![alt text](./images/image.png)
 
+We can extract a bit more system information with the following command:
+
+```bash
 vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.info
+```
 
-![alt text](image-1.png)
+![alt text](./images/image-1.png)
 
 
-como nos han dicho que es un virus persistente, vamos a busar las tareas programadas. Para ellos, copio a l protapapeles este script
+Since we were told the infection is persistent, we look for scheduled tasks. For that, I copy this [script](https://github.com/tomchop/volatility3-autoruns/blob/main/autoruns.py) to the clipboard. Paste it into the Volatility plugins path.
 
-https://github.com/tomchop/volatility3-autoruns/blob/main/autoruns.py
+![alt text](./images/image-2.png)
 
-lo peagamos en la ruta de plugins de volatility
+Then we run the following command to execute the script. After the analysis, we can see that on a regular interval it visits http://wiki-read.com/info.txt and executes its contents.
 
-![alt text](image-2.png)
-
+```bash
 vol3 -f memory.2244013c.img -s ~/desktop/tools/volatility3/volatility3/symbols/ windows.autoruns
+```
 
-en la imagen se puede ver que cada cierto tiempo, visita http://wiki-read.com/info.txt y ejecuta su contenido
-
-![alt text](image-3.png)
+![alt text](./images/image-3.png)
